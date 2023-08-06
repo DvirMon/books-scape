@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, mergeMap, map } from 'rxjs';
+import { Observable, map } from 'rxjs';
 
 export interface Book {
   id: string;
