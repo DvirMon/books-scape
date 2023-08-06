@@ -1,14 +1,19 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
-import {MatCardModule} from '@angular/material/card';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { TruncatePipe } from 'src/app/shared/truncate.pipe';
+import { Book } from '../books';
 
 @Component({
   selector: 'app-book-card',
   standalone: true,
-  imports: [CommonModule, MatCardModule, NgOptimizedImage],
+  imports: [CommonModule, MatCardModule, MatButtonModule, NgOptimizedImage, TruncatePipe],
   templateUrl: './book-card.component.html',
   styleUrls: ['./book-card.component.scss']
 })
 export class BookCardComponent {
+
+  @Input({ required: true }) book!: Book;
 
 }

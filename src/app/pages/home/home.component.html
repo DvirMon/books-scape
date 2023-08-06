@@ -1,3 +1,9 @@
-<pre>
-  {{ books$ | async | json }}
-</pre>
+<div class="books-page">
+  <div class="books-wrapper">
+    <ng-container *ngFor="let book of books$ | async">
+      <div class="book-card-wrapper">
+        <app-book-card [book]="book"></app-book-card>
+      </div>
+    </ng-container>
+  </div>
+</div>
