@@ -1,6 +1,12 @@
 <div class="books-page">
+
+  <header>
+    <app-search-input [initialValue]="'Angular'" (termChanged)="onTermChanged($event)"></app-search-input>
+  </header>
+
+
   <div class="books-wrapper">
-    <ng-container *ngFor="let book of books$ | async">
+    <ng-container *ngFor="let book of books()">
       <div class="book-card-wrapper">
         <app-book-card [book]="book"></app-book-card>
       </div>

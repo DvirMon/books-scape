@@ -1,21 +1,33 @@
-import { Component, inject } from '@angular/core';
+import { Component, Signal, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BooksService } from 'src/app/books/books.service';
 import { BookCardComponent } from 'src/app/books/book-card/book-card.component';
-import { Observable } from 'rxjs';
 import { Book } from 'src/app/books/books';
+import { StoreService } from 'src/app/shared/store.service';
+import { SearchInputComponent } from 'src/app/search-input/search-input.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, BookCardComponent],
+  imports: [CommonModule, BookCardComponent, SearchInputComponent],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent {
 
-  booksService : BooksService = inject(BooksService);
+  booksService: BooksService = inject(BooksService);
+  storeService: StoreService = inject(StoreService);
 
-  books$ : Observable<Book[]> = this.booksService.getBooks("harry potter")
+  public readonly books: Signal<Book[]>
+
+  constructor() {
+    this.books = this.storeService.selectBooks;
+  }
+
+  onTermChanged(value: string): void {
+    this.booksService.getBooks(value).subscribe((books) => this.storeService.update({ books }));
+  }
+
+  onAddToCart(): void { }
 
 }
