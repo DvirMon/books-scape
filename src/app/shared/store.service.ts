@@ -17,6 +17,7 @@ export class StoreService extends Store<AppState> {
   public selectBooks: Signal<Book[]> = this.select('books');
 
   constructor() {
-    super(createInitialState())
+    const initialState: AppState = { books: [], book: null }
+    super(createInitialState(initialState))
   }
 }

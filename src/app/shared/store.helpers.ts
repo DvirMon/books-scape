@@ -1,3 +1,3 @@
-export function createInitialState<T>(): T {
-  return {} as T;
+export function createInitialState<T>(initialState?: T): T {
+  return initialState || {} as T;
 }

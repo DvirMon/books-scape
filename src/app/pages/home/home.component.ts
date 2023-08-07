@@ -21,12 +21,13 @@ export class HomeComponent {
   public readonly books: Signal<Book[]>
 
   constructor() {
-    this.books = this.storeService.selectBooks
-
+    this.books = this.storeService.selectBooks;
   }
 
-  onTermChanged(event : string) {
-    this.booksService.getBooks(event).subscribe((books) => this.storeService.update({ books }))
+  onTermChanged(value: string): void {
+    this.booksService.getBooks(value).subscribe((books) => this.storeService.update({ books }));
   }
+
+  onAddToCart(): void { }
 
 }
