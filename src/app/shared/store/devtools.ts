@@ -15,19 +15,24 @@ interface ReduxDevToolsExtensionConnection {
   unsubscribe(): void;
 }
 
-export function connectDevTools(initialState: any): ReduxDevToolsExtensionConnection | null {
-  let devTools: ReduxDevToolsExtensionConnection | null = null;
+export class DevTools {
+  protected readonly devTools: ReduxDevToolsExtensionConnection | null = null;
+  private readonly options: any
 
-  if (window.__REDUX_DEVTOOLS_EXTENSION__) {
-    devTools = window.__REDUX_DEVTOOLS_EXTENSION__.connect();
-    devTools.init(initialState);
+  constructor(initialState: any, options: any) {
+
+    this.options = options
+
+    if (window.__REDUX_DEVTOOLS_EXTENSION__) {
+      this.devTools = window.__REDUX_DEVTOOLS_EXTENSION__.connect();
+      this.devTools.send(`${this.options.name} - @init`, initialState); // sending a custom action
+    }
   }
 
-  return devTools;
-}
-
-export function sendToDevTools(devTools: ReduxDevToolsExtensionConnection | null, action: any, state: any) {
-  if (devTools) {
-    devTools.send(action, state);
+  protected sendToDevTools(value: string, state: any) {
+    if (this.devTools) {
+      const action = `${this.options.name} - ` + value
+      this.devTools.send(action, state);
+    }
   }
 }

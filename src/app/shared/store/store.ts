@@ -1,16 +1,13 @@
 import { Signal, WritableSignal, computed, signal } from "@angular/core";
-import { connectDevTools, sendToDevTools } from "./devtools";
+import { DevTools } from "./devtools";
 
+export class Store<T> extends DevTools {
 
+  private readonly state: WritableSignal<T>;
 
-export class Store<T> {
-
-  private state: WritableSignal<T>;
-  private devTools: any;
-
-  constructor(initialState: T) {
+  constructor(initialState: T, options : any) {
+    super(initialState, options);
     this.state = signal(initialState);
-    this.devTools = connectDevTools(initialState);
 
   }
 
@@ -24,6 +21,6 @@ export class Store<T> {
       return { ...state, ...newState };
     });
 
-    sendToDevTools(this.devTools, 'UPDATE_STATE', this.state());
+    this.sendToDevTools('UPDATE_STATE', this.state());
   }
 }
