@@ -1,4 +1,4 @@
-import { Injectable, Signal } from '@angular/core';
+import { Injectable, Signal, computed } from '@angular/core';
 import { Book } from '../books/books';
 import { Store } from './store/store';
 import { withStoreConfiguration } from './store/store.helpers';
@@ -25,6 +25,7 @@ export class StoreService extends Store<AppState> {
 
   public selectBooks: Signal<Book[]> = this.select('books');
   public selectSearchTerm: Signal<string> = this.select('searchTerm');
+  public selectBooksLoaded : Signal<boolean> = computed(() => !!this.selectBooks().length)
 
   constructor() {
     super(createInitialState(), withStoreConfiguration({name : 'App Store'}))

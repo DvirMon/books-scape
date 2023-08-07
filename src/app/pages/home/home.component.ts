@@ -21,16 +21,19 @@ export class HomeComponent {
 
   public readonly books: Signal<Book[]>
   protected readonly initialValue: Signal<string>;
+  protected readonly booksLoaded: Signal<boolean>;
 
   constructor() {
     this.books = this.storeService.selectBooks;
-    // this.initialValue  = signal('Angular');
     this.initialValue = this.storeService.selectSearchTerm
+    this.booksLoaded = this.storeService.selectBooksLoaded
   }
 
   onTermChanged(value: string): void {
+    if(!this.booksLoaded() || this.initialValue() !== value) {
+      this.booksService.getBooks(value).subscribe((books) => this.storeService.update({ books, searchTerm: value }));
+    }
 
-    this.booksService.getBooks(value).subscribe((books) => this.storeService.update({ books, searchTerm: value }));
   }
 
   onAddToCart(): void { }
