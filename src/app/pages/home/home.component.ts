@@ -1,4 +1,4 @@
-import { Component, Signal, inject } from '@angular/core';
+import { Component, Signal, WritableSignal, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BooksService } from 'src/app/books/books.service';
 import { BookCardComponent } from 'src/app/books/book-card/book-card.component';
@@ -18,14 +18,19 @@ export class HomeComponent {
   booksService: BooksService = inject(BooksService);
   storeService: StoreService = inject(StoreService);
 
+
   public readonly books: Signal<Book[]>
+  protected readonly initialValue: Signal<string>;
 
   constructor() {
     this.books = this.storeService.selectBooks;
+    // this.initialValue  = signal('Angular');
+    this.initialValue = this.storeService.selectSearchTerm
   }
 
   onTermChanged(value: string): void {
-    this.booksService.getBooks(value).subscribe((books) => this.storeService.update({ books }));
+
+    this.booksService.getBooks(value).subscribe((books) => this.storeService.update({ books, searchTerm: value }));
   }
 
   onAddToCart(): void { }

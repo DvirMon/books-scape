@@ -4,12 +4,14 @@ import { Store } from './store/store';
 import { withStoreConfiguration } from './store/store.helpers';
 
 export interface AppState {
+  searchTerm  : string
   books: Book[],
   book: Book | null
 }
 
 export function createInitialState(): AppState {
   return {
+    searchTerm : 'Angular',
     books: [],
     book: null
   }
@@ -21,8 +23,8 @@ export function createInitialState(): AppState {
 })
 export class StoreService extends Store<AppState> {
 
-
   public selectBooks: Signal<Book[]> = this.select('books');
+  public selectSearchTerm: Signal<string> = this.select('searchTerm');
 
   constructor() {
     super(createInitialState(), withStoreConfiguration({name : 'App Store'}))
