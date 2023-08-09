@@ -1,7 +1,7 @@
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Injectable, WritableSignal, signal } from '@angular/core';
-import { Observable, map, tap } from 'rxjs';
 import { Book } from './books';
+import { Observable, map } from 'rxjs';
 
 
 @Injectable({

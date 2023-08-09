@@ -5,7 +5,7 @@ export class Store<T> extends DevTools {
 
   private readonly state: WritableSignal<T>;
 
-  constructor(initialState: T, options : any) {
+  constructor(initialState: T, options : unknown) {
     super(initialState, options);
     this.state = signal(initialState);
 
