@@ -1,10 +1,10 @@
-import { Component, Signal, WritableSignal, inject, signal } from '@angular/core';
+import { Component, Signal, WritableSignal, computed, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BooksService } from 'src/app/books/books.service';
 import { BookCardComponent } from 'src/app/books/book-card/book-card.component';
 import { Book } from 'src/app/books/books';
-import { StoreService } from 'src/app/shared/store.service';
-import { SearchInputComponent } from 'src/app/search-input/search-input.component';
+import { AppState, StoreService } from 'src/app/shared/store.service';
+import { SearchInputComponent, SearchResultsData } from 'src/app/search-input/search-input.component';
 
 @Component({
   selector: 'app-home',
@@ -22,20 +22,31 @@ export class HomeComponent {
   public readonly books: Signal<Book[]>
   protected readonly initialValue: Signal<string>;
   protected readonly booksLoaded: Signal<boolean>;
+  protected readonly searchResultsData: Signal<SearchResultsData>
 
   constructor() {
     this.books = this.storeService.selectBooks;
-    this.initialValue = this.storeService.selectSearchTerm
-    this.booksLoaded = this.storeService.selectBooksLoaded
+    this.initialValue = this.storeService.selectSearchTerm;
+    this.booksLoaded = this.storeService.selectBooksLoaded;
+    this.searchResultsData = this.storeService.selectSearchData
   }
 
   onTermChanged(value: string): void {
-    if(!this.booksLoaded() || this.initialValue() !== value) {
+    if (!this.booksLoaded() || this.initialValue() !== value) {
       this.booksService.getBooks(value).subscribe((books) => this.storeService.update({ books, searchTerm: value }));
     }
 
   }
 
-  onAddToCart(): void { }
+  onAddToCart(book: Book): void {
+
+    this.storeService.update((state: AppState) => {
+      return {
+        ...state,
+        cart: [...state.cart, book]
+      }
+    })
+
+  }
 
 }

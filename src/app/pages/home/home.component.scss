@@ -4,7 +4,18 @@ div.books-page {
   flex-direction: column;
   align-items: center;
 
-  div.books-wrapper {
+  header {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin: 16px;
+
+    div.search-wrapper {
+      width: 50%;
+    }
+  }
+
+  main.books-wrapper {
     display: flex;
     flex-wrap: wrap;
     width: 80%;
