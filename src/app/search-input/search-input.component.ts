@@ -6,6 +6,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { debounceTime, distinctUntilChanged, startWith } from 'rxjs';
 
+export interface SearchResultsData {
+  totalResults: number
+}
+
 @Component({
   selector: 'app-search-input',
   standalone: true,
@@ -16,6 +20,7 @@ import { debounceTime, distinctUntilChanged, startWith } from 'rxjs';
 export class SearchInputComponent implements OnInit {
 
   @Input() initialValue!: string;
+  @Input() searchResultsData!: SearchResultsData
 
   public searchControl: FormControl<string> = new FormControl();
 
