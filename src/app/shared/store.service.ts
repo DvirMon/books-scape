@@ -27,6 +27,7 @@ export function createInitialState(): AppState {
 export class StoreService extends Store<AppState> {
 
   public selectBooks: Signal<Book[]> = this.select('books');
+  public selectCart: Signal<Book[]> = this.select('cart');
   public selectSearchTerm: Signal<string> = this.select('searchTerm');
   public selectBooksLoaded : Signal<boolean> = computed(() => !!this.selectBooks().length);
   public selectSearchData : Signal<SearchResultsData> =   computed(() => { return {totalResults : this.selectBooks().length }})

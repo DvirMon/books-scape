@@ -18,7 +18,6 @@ export class HomeComponent {
   booksService: BooksService = inject(BooksService);
   storeService: StoreService = inject(StoreService);
 
-
   public readonly books: Signal<Book[]>
   protected readonly initialValue: Signal<string>;
   protected readonly booksLoaded: Signal<boolean>;
