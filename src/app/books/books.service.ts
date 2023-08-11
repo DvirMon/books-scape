@@ -11,7 +11,7 @@ export class BooksService {
 
   private readonly API_URL = 'https://www.googleapis.com/books/v1/volumes';
   private readonly MAX_RESULTS: number = 10
-  private readonly BOOKS_API_KEY = 'AIzaSyAZSKuvnFiV9QTXM7NI6HgwpBp4m8rzSuM'
+  private readonly BOOKS_API_KEY = 'AIzaSyCuPal5GAP6HwooAneLi24X9ZyQ9hKxLMo'
 
   constructor(
     private http: HttpClient
