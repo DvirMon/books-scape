@@ -9,17 +9,19 @@ declare global {
 }
 
 interface ReduxDevToolsExtensionConnection {
-  init(state?: any): void;
-  send(action: any, state?: any): void;
-  subscribe(listener: (message: any) => void): void;
+  init(state?: unknown): void;
+  send(action: unknown, state?: unknown): void;
+  subscribe(listener: (message: unknown) => void): void;
   unsubscribe(): void;
 }
 
+export interface StoreOptions { name: string }
+
 export class DevTools {
   protected readonly devTools: ReduxDevToolsExtensionConnection | null = null;
-  private readonly options: any
+  private readonly options: StoreOptions
 
-  constructor(initialState: any, options: any) {
+  constructor(initialState: unknown, options: StoreOptions) {
 
     this.options = options
 
@@ -29,7 +31,7 @@ export class DevTools {
     }
   }
 
-  protected sendToDevTools(value: string, state: any) {
+  protected sendToDevTools(value: string, state: unknown) {
     if (this.devTools) {
       const action = `${this.options.name} - ` + value
       this.devTools.send(action, state);

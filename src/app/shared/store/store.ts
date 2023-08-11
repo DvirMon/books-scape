@@ -1,11 +1,11 @@
 import { Signal, WritableSignal, computed, signal } from "@angular/core";
-import { DevTools } from "./devtools";
+import { DevTools, StoreOptions } from "./devtools";
 
 export class Store<T> extends DevTools {
 
   private readonly state: WritableSignal<T>;
 
-  constructor(initialState: T, options : unknown) {
+  constructor(initialState: T, options : StoreOptions) {
     super(initialState, options);
     this.state = signal(initialState);
 

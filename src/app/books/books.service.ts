@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Book, Item, Root, VolumeInfo } from './books';
 import { Observable, map } from 'rxjs';
-import { environment } from 'src/enviroments/environment';
+import { environment } from 'src/environments/environment';
 
 
 @Injectable({
