@@ -16,7 +16,7 @@ export class CartComponent {
   public readonly cart: Signal<Book[]>
 
   constructor() {
-    this.cart = inject(StoreService).selectCart
+    this.cart = inject(StoreService).selectCart;
   }
 
 }
