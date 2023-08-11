@@ -18,7 +18,6 @@ export class HomeComponent {
   booksService: BooksService = inject(BooksService);
   storeService: StoreService = inject(StoreService);
 
-
   public readonly books: Signal<Book[]>
   protected readonly initialValue: Signal<string>;
   protected readonly booksLoaded: Signal<boolean>;
@@ -38,12 +37,17 @@ export class HomeComponent {
 
   }
 
-  onAddToCart(book: Book): void {
+  onAddToCart(newBook: Book): void {
 
     this.storeService.update((state: AppState) => {
+
+      if (state.cart.some((book: Book) => book.id === newBook.id)) {
+        return state
+      }
+
       return {
         ...state,
-        cart: [...state.cart, book]
+        cart: [...state.cart, newBook]
       }
     })
 

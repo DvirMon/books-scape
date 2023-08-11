@@ -15,10 +15,11 @@ import { Book } from '../books';
 export class BookCardComponent {
 
   @Input({ required: true }) book!: Book;
+  @Input() cartFlag = false;
 
-  @Output() addToCart : EventEmitter<Book> = new EventEmitter();
+  @Output() addToCart: EventEmitter<Book> = new EventEmitter();
 
-  onAddToCart(value : Book) {
+  onAddToCart(value: Book) {
     this.addToCart.emit(value)
   }
 
