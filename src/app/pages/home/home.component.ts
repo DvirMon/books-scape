@@ -37,12 +37,17 @@ export class HomeComponent {
 
   }
 
-  onAddToCart(book: Book): void {
+  onAddToCart(newBook: Book): void {
 
     this.storeService.update((state: AppState) => {
+
+      if (state.cart.find((book: Book) => book.id === newBook.id)) {
+        return state
+      }
+
       return {
         ...state,
-        cart: [...state.cart, book]
+        cart: [...state.cart, newBook]
       }
     })
 
