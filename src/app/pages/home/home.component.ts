@@ -41,7 +41,7 @@ export class HomeComponent {
 
     this.storeService.update((state: AppState) => {
 
-      if (state.cart.find((book: Book) => book.id === newBook.id)) {
+      if (state.cart.some((book: Book) => book.id === newBook.id)) {
         return state
       }
 
